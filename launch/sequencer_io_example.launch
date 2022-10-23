@@ -1,0 +1,3 @@
+<launch>
+    <node name="sequencer_io_example" pkg="trajectory_tools" type="sequencer_io_example.py" output="screen"/>   
+</launch>

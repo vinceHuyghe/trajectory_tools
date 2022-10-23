@@ -1,0 +1,7 @@
+<launch>
+    <arg name="sim" default="true"/>
+    <group if="$(arg sim)">
+        <include file="$(find ur10e_ee_moveit_config)/launch/demo.launch"/>
+     </group>    
+    <node name="sequence_from_yaml_example" pkg="trajectory_tools" type="sequence_from_yaml_example.py" output="screen"/>   
+</launch>

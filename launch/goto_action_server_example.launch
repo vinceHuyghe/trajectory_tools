@@ -1,0 +1,8 @@
+<launch>
+    <arg name="sim" default="true"/>
+    <group if="$(arg sim)">
+        <include file="$(find ur10e_moveit_config)/launch/demo.launch"/>
+    </group>
+    <node name="goto_action_server_example" pkg="trajectory_tools" type="goto_action_server_example.py" output="screen"/>
+    <node name="goto_client" pkg="trajectory_tools" type="goto_client.py" output="screen"/>
+</launch>

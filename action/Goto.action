@@ -1,0 +1,8 @@
+#goal definition
+geometry_msgs/Pose goal
+---
+#result definition
+bool goal_reached
+---
+#feedback
+bool planning_succeeded

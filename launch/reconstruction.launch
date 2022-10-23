@@ -1,0 +1,22 @@
+<launch>
+    <!-- Moveit config -->
+    <include file="$(find ur10e_moveit_config)/launch/demo.launch" />
+    <!-- Tf publisher that links camera link to tool0 -->
+    <node pkg="tf" type="static_transform_publisher" name="camera_link_broadcaster" args="0 0 0 0 -0.7071068 0 0.7071068 tool0 camera_link 100" />
+    <!-- Realsense -->
+    <include file="$(find realsense2_camera)/launch/rs_rgbd.launch">
+        <!-- <arg name="enable_pointcloud" value="false" /> -->
+        <!-- <arg name="ordered_pc" value="true" /> -->
+        <!-- <arg name="filters" value="pointcloud" /> -->
+        <!-- <arg name="clip_distance" value="0.5" /> -->
+        <arg name='enable_depth' value='true' /> 
+    </include>
+        <!-- Reconstruction -->
+    <include file="$(find industrial_reconstruction)/launch/reconstruction.launch">
+        <arg name="depth_image_topic" value="/camera/depth/image_rect_raw" />
+        <arg name="color_image_topic" value="/camera/color/image_raw" />
+        <arg name="camera_info_topic" value="/camera/color/camera_info" />
+    </include>
+    <!-- Moveit Commander -->
+    <node name="scanning_example" pkg="trajectory_tools" type="scanning_example.py" output="screen" />
+</launch>
