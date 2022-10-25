@@ -16,7 +16,7 @@ def robot_program():
     th = TrajectoryHandler()
 
     # go to start
-    start = th.start_position
+    start = th.start
 
     th.sequencer.plan(Ptp(goal=start))
     th.sequencer.execute()

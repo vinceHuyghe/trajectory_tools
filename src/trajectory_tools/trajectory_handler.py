@@ -293,7 +293,7 @@ class TrajectoryHandler:
 
                 id += 1
 
-        for i in range(3):
+        for i in range(5):
             pub.publish(marker_array)
             rospy.sleep(0.2)
 
