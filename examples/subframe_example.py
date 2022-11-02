@@ -30,7 +30,7 @@ def robot_program():
 
     # attach collision object with subframe
     th.attach_end_effector(ee_name)
-    th.move_group.set_end_effector_link(f"{ee_name}/tcp")
+    th.move_group.set_end_effector_link(f"{ee_name}/tcp") # name of collision object / name of subframe
     rospy.loginfo(
         f"{th.name}: end effector link set to {th.move_group.get_end_effector_link()}"
     )

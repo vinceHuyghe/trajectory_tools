@@ -20,12 +20,12 @@ start_srv_req.relative_frame = "base_link"
 start_srv_req.translation_distance = 0.0
 start_srv_req.rotational_distance = 0.0
 start_srv_req.live = True
-start_srv_req.tsdf_params.voxel_length = 0.02
-start_srv_req.tsdf_params.sdf_trunc = 0.04
+start_srv_req.tsdf_params.voxel_length = 0.001
+start_srv_req.tsdf_params.sdf_trunc = 0.002
 start_srv_req.tsdf_params.min_box_values = Vector3(x=0.0, y=0.0, z=0.0)
 start_srv_req.tsdf_params.max_box_values = Vector3(x=0.0, y=0.0, z=0.0)
 start_srv_req.rgbd_params.depth_scale = 1000
-start_srv_req.rgbd_params.depth_trunc = 0.5
+start_srv_req.rgbd_params.depth_trunc = 0.25
 start_srv_req.rgbd_params.convert_rgb_to_intensity = False
 
 stop_srv_req = StopReconstructionRequest()
@@ -47,10 +47,10 @@ def robot_program():
 
     start = (0.0, -pi / 2.0, pi / 2.0, 0.0, pi / 2.0, 0.0)
     pose1 = Pose(
-        position=Point(0.6, -0.5, 0.3), orientation=Quaternion(0.0, 1.0, 0.0, 0.0)
+        position=Point(0.6, -0.5, 0.15), orientation=Quaternion(0.0, 1.0, 0.0, 0.0)
     )
     pose2 = Pose(
-        position=Point(0.6, 0.5, 0.3), orientation=Quaternion(0.0, 1.0, 0.0, 0.0)
+        position=Point(0.6, 0.5, 0.15), orientation=Quaternion(0.0, 1.0, 0.0, 0.0)
     )
 
     th = TrajectoryHandler()
@@ -64,9 +64,9 @@ def robot_program():
     )
 
     # Move into position to start reconstruction
-    th.sequencer.plan(Ptp(goal=start, vel_scale=0.3, acc_scale=0.3))
+    th.sequencer.plan(Ptp(goal=start, vel_scale=0.1, acc_scale=0.3))
     th.sequencer.execute()
-    th.sequencer.plan(Ptp(goal=pose1, vel_scale=0.3, acc_scale=0.3))
+    th.sequencer.plan(Ptp(goal=pose1, vel_scale=0.1, acc_scale=0.3))
     th.sequencer.execute()
 
     # Start reconstruction with service srv_req
@@ -77,7 +77,7 @@ def robot_program():
     else:
         rospy.loginfo("robot program: failed to start reconstruction")
 
-    th.sequencer.plan(Lin(goal=pose2, vel_scale=0.1, acc_scale=0.3))
+    th.sequencer.plan(Lin(goal=pose2, vel_scale=0.001, acc_scale=0.001))
     th.sequencer.execute()
 
     # Stop reconstruction with service srv_req
