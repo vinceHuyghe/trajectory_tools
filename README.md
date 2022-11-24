@@ -1,3 +1,5 @@
+Archived in favour of [move_group_utils](https://github.com/vinceHuyghe/move_group_utils)
+
 # Trajectory tools
 
 Convenience pkg for interfacing with moveit
